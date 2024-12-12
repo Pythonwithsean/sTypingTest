@@ -31,6 +31,7 @@ body {
 .cursor {
   width: 10px;
   height: 1.2em;
+  font-size: large;
   background-color: rgb(0, 0, 0);
   margin-left: 2px;
   animation: blink 0.7s step-end infinite;
@@ -100,6 +101,10 @@ body {
   text-align: left;
   line-height: 1.6;
   text-shadow: 0 0 7px #444444;
+}
+
+.char {
+  font-size: 1.2rem;
 }
 
 .char.correct {

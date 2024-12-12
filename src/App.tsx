@@ -1,6 +1,8 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import "./App.css";
 import TestText from "./meta-data/typingText";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [input, setInput] = useState("");
@@ -14,22 +16,16 @@ function App() {
   const [errors, setErrors] = useState(0);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: unknown;
     if (isTyping) {
       interval = setInterval(() => {
         setTimer((prevTimer) => prevTimer + 1);
       }, 1000);
     } else {
-      clearInterval(interval);
+      clearInterval(interval as number);
     }
-    return () => clearInterval(interval);
+    return () => clearInterval(interval as number);
   }, [isTyping]);
-
-  useEffect(() => {
-    if (accuracy <= 0) {
-      setAccuracy(0);
-    }
-  }, [accuracy]);
 
   const handleType = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -39,12 +35,27 @@ function App() {
     if (!isTyping && newValue.length > 0) {
       setIsTyping(true);
     }
-
     if (newValue.length > currentLength) {
       setCurrentLength(newValue.length);
       setCurrentIndex(newValue.length - 1);
+      if (currentIndex >= toTypeText.trim().length - 1) {
+        toast.success("You completed the test!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
+        return;
+      }
+
       if (newValue[currentIndex] === toTypeText[currentIndex]) {
-        setAccuracy((prevAccuracy) => prevAccuracy - errors + 1);
+        setAccuracy((prevAccuracy) => prevAccuracy + 1);
       } else {
         setErrors((prevErrors) => prevErrors + 1);
       }
@@ -55,6 +66,7 @@ function App() {
       if (accuracy > 0) {
         setAccuracy((prevAccuracy) => prevAccuracy - 1);
       }
+
       setInput(newValue);
     }
 
@@ -89,7 +101,11 @@ function App() {
           <span>Time: {timer}s</span> <span>WPM: {wpm}</span>{" "}
           <span>
             Accuracy:{" "}
-            {accuracy > 0 && ((accuracy / toTypeText.length) * 100).toFixed(2)}%
+            {Math.max(
+              0,
+              ((toTypeText.length - errors) / toTypeText.length) * 100
+            ).toFixed(2)}
+            %
           </span>
         </div>
         <div className="text-area">
@@ -126,6 +142,7 @@ function App() {
           <span>esc</span> - quit
         </p>
       </footer>
+      <ToastContainer />
     </div>
   );
 }
