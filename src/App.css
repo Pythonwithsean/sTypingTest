@@ -1,42 +1,153 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* General Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro",
+    monospace;
+  background-color: #121212;
+  color: #f5f5f5;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+  padding: 30px;
+}
+
+.cursor {
+  color: #00ff7f;
+  font-size: large;
+  font-weight: bold;
+  text-shadow: 0 0 7px #00ff7f;
+  width: 10px;
+}
+
+.cursor {
+  width: 10px;
+  height: 1.2em;
+  background-color: rgb(0, 0, 0);
+  margin-left: 2px;
+  animation: blink 0.7s step-end infinite;
+}
+
+.cursor.active {
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.modes {
+  font-size: 1.2rem;
+  color: #888888;
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+}
+
+.modes span {
+  cursor: pointer;
+}
+
+.modes .active {
+  color: #00ff7f;
+  font-weight: bold;
+}
+
+/* Typing Test Section */
+.typing-test {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.text-area {
+  padding: 25px;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  border: 1px solid #444444;
+  box-shadow: 0 0 7px #444444;
+}
+
+.text-area p {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #ffffff;
+  text-align: left;
+  line-height: 1.6;
+  text-shadow: 0 0 7px #444444;
+}
+
+.char.correct {
+  color: #00ff7f;
+}
+
+.char.incorrect {
+  color: #ff4500;
+}
+
+.text-input {
+  width: 100%;
+  padding: 20px;
+  font-size: 1.5rem;
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #444444;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.text-input:focus {
+  border-color: #00ff7f;
+  box-shadow: 0 0 12px #00ff7f;
+}
+
+.text-input::placeholder {
+  color: #888888;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+/* Footer Section */
+.footer {
+  font-size: 1.2rem;
+  color: #cccccc;
+  margin-top: 30px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.footer span {
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.footer span:hover {
+  color: #00ff7f;
 }
